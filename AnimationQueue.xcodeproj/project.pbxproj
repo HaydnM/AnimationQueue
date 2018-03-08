@@ -29,6 +29,7 @@
 		2E08A47A2051453E0009A4FF /* AnimationQueueTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AnimationQueueTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E08A47F2051453E0009A4FF /* AnimationQueueTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationQueueTests.swift; sourceTree = "<group>"; };
 		2E08A4812051453E0009A4FF /* Test-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Test-Info.plist"; sourceTree = "<group>"; };
+		2E08A48C205155460009A4FF /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +54,7 @@
 		2E08A4672051453E0009A4FF = {
 			isa = PBXGroup;
 			children = (
+				2E08A48C205155460009A4FF /* README.md */,
 				2E08A4732051453E0009A4FF /* AnimationQueue */,
 				2E08A47E2051453E0009A4FF /* AnimationQueueTests */,
 				2E08A48B205149F10009A4FF /* Config */,
