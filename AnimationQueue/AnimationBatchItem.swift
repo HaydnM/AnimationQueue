@@ -1,7 +1,7 @@
 import Foundation
 
 
-class AnimationBatchItem {
+class AnimationBatchItem: Equatable {
     let animation: CAAnimation
     let layer: CALayer
     let key: String
@@ -10,5 +10,9 @@ class AnimationBatchItem {
         self.animation = animation
         self.layer = layer
         self.key = key
+    }
+    
+    static func ==(lhs: AnimationBatchItem, rhs: AnimationBatchItem) -> Bool {
+        return lhs === rhs
     }
 }

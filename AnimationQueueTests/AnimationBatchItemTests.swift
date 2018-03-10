@@ -25,7 +25,7 @@ class AnimationBatchItemTests: XCTestCase {
     }
     
     func testThatAnimationBatchItem_DoesExist() {
-        XCTAssertNotNil(sut, "should be able to create a AnimationBatchItem instance")
+        XCTAssertNotNil(sut, "should be able to create an AnimationBatchItem instance")
     }
     
     func testThatNewAnimationBatchItem_MustHaveAnimation() {

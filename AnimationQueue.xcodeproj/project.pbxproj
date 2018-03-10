@@ -12,6 +12,7 @@
 		2E08A4822051453E0009A4FF /* AnimationQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = 2E08A4742051453E0009A4FF /* AnimationQueue.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2E08A48E20515A480009A4FF /* AnimationBatchItemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E08A48D20515A480009A4FF /* AnimationBatchItemTests.swift */; };
 		2E08A49020515B180009A4FF /* AnimationBatchItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E08A48F20515B180009A4FF /* AnimationBatchItem.swift */; };
+		2EC743E4205393DF0048C6C5 /* AnimationQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC743E3205393DF0048C6C5 /* AnimationQueue.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +35,7 @@
 		2E08A48C205155460009A4FF /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		2E08A48D20515A480009A4FF /* AnimationBatchItemTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationBatchItemTests.swift; sourceTree = "<group>"; };
 		2E08A48F20515B180009A4FF /* AnimationBatchItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationBatchItem.swift; sourceTree = "<group>"; };
+		2EC743E3205393DF0048C6C5 /* AnimationQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationQueue.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +81,7 @@
 			isa = PBXGroup;
 			children = (
 				2E08A4742051453E0009A4FF /* AnimationQueue.h */,
+				2EC743E3205393DF0048C6C5 /* AnimationQueue.swift */,
 				2E08A48F20515B180009A4FF /* AnimationBatchItem.swift */,
 			);
 			path = AnimationQueue;
@@ -213,6 +216,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2EC743E4205393DF0048C6C5 /* AnimationQueue.swift in Sources */,
 				2E08A49020515B180009A4FF /* AnimationBatchItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
