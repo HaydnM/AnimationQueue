@@ -40,4 +40,5 @@ class AnimationBatchItemTests: XCTestCase {
         XCTAssertEqual(key, sut.key, "the animaiton key should be the one passed to it at initialisation")
     }
     
+    
 }

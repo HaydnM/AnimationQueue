@@ -3,26 +3,26 @@ import Foundation
 
 class AnimationQueue {
     
-    private var itemQueue: [AnimationBatchItem]
+    private var items: [AnimationBatch]
     
     init() {
-        self.itemQueue = []
+        self.items = []
     }
     
-    /// Inserts the AnimationBatchItem into the queue
-    func enqueue(_ animationBatchItem: AnimationBatchItem) {
-        self.itemQueue.append(animationBatchItem)
+    /// Inserts the AnimationBatch into the queue
+    func enqueue(_ animationBatchItem: AnimationBatch) {
+        self.items.append(animationBatchItem)
     }
     
     /// Retrieves, but does not remove, the head of the queue, or returns nil if the queue is empty
-    func head() -> AnimationBatchItem? {
-        return self.itemQueue.first
+    func head() -> AnimationBatch? {
+        return self.items.first
     }
     
     /// Retrieves and removes the head of this queue, returns nil if the queue is empty
-    func dequeue() -> AnimationBatchItem? {
-        guard let _ = self.itemQueue.first else { return nil }
-        return self.itemQueue.remove(at: 0)
+    func dequeue() -> AnimationBatch? {
+        guard let _ = self.items.first else { return nil }
+        return self.items.remove(at: 0)
     }
     
 }

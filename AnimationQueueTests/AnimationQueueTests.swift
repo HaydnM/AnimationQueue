@@ -4,16 +4,18 @@ import XCTest
 class AnimationQueueTests: XCTestCase {
     
     var sut: AnimationQueue!
-    var batchItem: AnimationBatchItem!
+    var batch: AnimationBatch?
     
     override func setUp() {
         self.sut = AnimationQueue()
-        self.batchItem = AnimationBatchItem(animation: CAAnimation(), layer: CALayer(), key: "key")
+        
+        let batchItem = AnimationBatchItem(animation: CAAnimation(), layer: CALayer(), key: "key")
+        self.batch = AnimationBatch(items:[batchItem])
     }
     
     override func tearDown() {
         self.sut = nil
-        self.batchItem = nil
+        self.batch = nil
     }
     
     func testThatAnimationQueue_DoesExist() {
@@ -21,22 +23,22 @@ class AnimationQueueTests: XCTestCase {
     }
     
     func testThatAnimationQueue_CanEnqueueItem() {
-        sut.enqueue(batchItem)
+        sut.enqueue(batch!)
         
-        XCTAssertEqual(batchItem, sut.head(), "the AnimationBatchItem enqueued does not match the one returned from queue")
+        XCTAssertEqual(batch, sut.head(), "the AnimationBatchItem enqueued does not match the one returned from queue")
     }
     
     func testAnimationQueue_WhenDequeuing_ReturnsFirstQueuedItem() {
-        let batchItem2 = AnimationBatchItem(animation: CAAnimation(), layer: CALayer(), key: "key2")
+        let batch2 = AnimationBatch(items: [AnimationBatchItem(animation: CAAnimation(), layer: CALayer(), key: "key")])
         
-        sut.enqueue(batchItem)
-        sut.enqueue(batchItem2)
+        sut.enqueue(batch!)
+        sut.enqueue(batch2)
         
-        XCTAssertEqual(batchItem, sut.dequeue(), "the first AnimationBatchItem enqueued does not match the one that was dequeued")
+        XCTAssertEqual(batch, sut.dequeue(), "the first AnimationBatchItem enqueued does not match the one that was dequeued")
     }
     
     func testAnimationQueueWithOneItem_AfterDequeuing_IsEmpty() {
-        sut.enqueue(batchItem)
+        sut.enqueue(batch!)
         _ = sut.dequeue()
         
         XCTAssertNil(sut.dequeue(), "expected queue to be empty")
