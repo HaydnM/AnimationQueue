@@ -1,28 +1,50 @@
 import Foundation
 
 
-class AnimationQueue {
+class AnimationQueue: NSObject, CAAnimationDelegate {
     
-    private var items: [AnimationBatch]
+    private var batches: [AnimationBatch]
+    private(set) var animationCount: Int
     
-    init() {
-        self.items = []
+    override init() {
+        self.animationCount = 0
+        self.batches = []
+        
+        super.init()
     }
     
-    /// Inserts the AnimationBatch into the queue
-    func enqueue(_ animationBatchItem: AnimationBatch) {
-        self.items.append(animationBatchItem)
+    var batchCount: Int {
+        return self.batches.count
     }
     
-    /// Retrieves, but does not remove, the head of the queue, or returns nil if the queue is empty
+    func enqueue(_ animationBatch: AnimationBatch) {
+        if animationCount > 0 {
+            self.batches.append(animationBatch)
+        } else {
+            self.runBatch(animationBatch)
+        }
+    }
+    
     func head() -> AnimationBatch? {
-        return self.items.first
+        return batches.first
     }
     
-    /// Retrieves and removes the head of this queue, returns nil if the queue is empty
-    func dequeue() -> AnimationBatch? {
-        guard let _ = self.items.first else { return nil }
-        return self.items.remove(at: 0)
+    private func runBatch(_ batch: AnimationBatch) {
+        
+        for batchItem in batch.items {
+            animationCount += 1
+            batchItem.animation.delegate = self
+            batchItem.layer.add(batchItem.animation, forKey: batchItem.key)
+        }
     }
     
+    // MARK: - Animation Delegate
+    
+    func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
+        if self.animationCount > 0 { self.animationCount -= 1 }
+        
+        if let _ = self.head() {
+            self.runBatch(self.batches.removeFirst())
+        }
+    }
 }
