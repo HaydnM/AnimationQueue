@@ -43,7 +43,7 @@ class AnimationQueue: NSObject, CAAnimationDelegate {
     func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
         if self.animationCount > 0 { self.animationCount -= 1 }
         
-        if let _ = self.head() {
+        if let _ = self.head(), self.animationCount == 0 {
             self.runBatch(self.batches.removeFirst())
         }
     }
