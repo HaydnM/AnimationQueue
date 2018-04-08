@@ -34,6 +34,7 @@ class AnimationQueue: NSObject, CAAnimationDelegate {
         for batchItem in batch.items {
             animationCount += 1
             batchItem.animation.delegate = self
+            batchItem.animation.beginTime = batchItem.layer.convertTime(CACurrentMediaTime(), from: nil) + batchItem.animation.timeOffset
             batchItem.layer.add(batchItem.animation, forKey: batchItem.key)
         }
     }
