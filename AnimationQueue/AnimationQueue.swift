@@ -1,17 +1,28 @@
-import Foundation
+import UIKit
 
 
 class AnimationQueue: NSObject, CAAnimationDelegate {
     
     private var batches: [AnimationBatch]
     private(set) var animationCount: Int
+    private var paused: Bool
+    
+    // MARK: - Initialiser
     
     override init() {
-        self.animationCount = 0
         self.batches = []
+        self.animationCount = 0
+        self.paused = false
         
         super.init()
+        setupNotifications()
     }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    // MARK: - Queue
     
     var batchCount: Int {
         return self.batches.count
@@ -34,8 +45,8 @@ class AnimationQueue: NSObject, CAAnimationDelegate {
         for batchItem in batch.items {
             animationCount += 1
             batchItem.animation.delegate = self
-            batchItem.animation.beginTime = batchItem.layer.convertTime(CACurrentMediaTime(), from: nil) + batchItem.animation.beginTime
-            batchItem.layer.add(batchItem.animation, forKey: batchItem.key)
+            batchItem.animation.beginTime = batchItem.layer.convertTime(CACurrentMediaTime(), from: nil) + batchItem.offset
+            batchItem.layer.add(batchItem.animation.copy() as! CAAnimation, forKey: batchItem.key)
         }
     }
     
@@ -43,6 +54,26 @@ class AnimationQueue: NSObject, CAAnimationDelegate {
     
     func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
         if self.animationCount > 0 { self.animationCount -= 1 }
+        if paused == true { return }
+        
+        if let _ = self.head(), self.animationCount == 0 {
+            self.runBatch(self.batches.removeFirst())
+        }
+    }
+    
+    // MARK: - Notification Handlers
+    
+    func setupNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(applicationEnteringBackground), name: .UIApplicationWillResignActive, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(applicationReturnedForeground), name: .UIApplicationDidBecomeActive, object: nil)
+    }
+    
+    @objc func applicationEnteringBackground() {
+        self.paused = true
+    }
+    
+    @objc func applicationReturnedForeground() {
+        self.paused = false
         
         if let _ = self.head(), self.animationCount == 0 {
             self.runBatch(self.batches.removeFirst())
